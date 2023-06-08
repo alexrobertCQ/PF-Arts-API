@@ -39,13 +39,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Sequelize has all models in sequelize.models. we can use it destructuring.
 const { User, Artwork } = sequelize.models;
 // Then it can be related.
-User.hasMany(Artwork);
-// Definir las relaciones adicionales si es necesario
-// Por ejemplo, establecer una relación de uno a uno entre User y otra entidad:
-// User.hasOne(Artwork);
-
-// Establecer una relación de muchos a muchos con una tabla intermedia:
-// User.belongsToMany(Artwork, { through: 'userArtwork' });
+User.hasMany(Artwork, { foreignKey: "userId" });
+Artwork.belongsTo(User, { foreignKey: "userId" });
 
 module.exports = {
   ...sequelize.models, // To import models like: const { Product, User } = require('./db.js');
