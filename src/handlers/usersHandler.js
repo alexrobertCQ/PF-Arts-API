@@ -1,5 +1,13 @@
 const createUser = require("../controllers/usersControllers.js");
-const getArtwork = require("../controllers/usersControllers.js");
+
+const getUsersHandler = async (req, res) => {
+  try {
+    const response = await getUsers();
+    res.status(201).json(response);
+  } catch (error) {
+    res.status(422).json({ error: error });
+  }
+};
 
 const postUsersHandler = async (req, res) => {
   const { name, image, description } = req.body;
@@ -14,16 +22,6 @@ const postUsersHandler = async (req, res) => {
   }
 };
 
-const getArtworkHandler = async (req, res) => {
-  try {
-    const response = getArtwork();
-    res.status(200).json(response);
-  } catch (error) {
-    res.status(422).json({ error: error.message });
-  }
-};
-
 module.exports = {
   postUsersHandler,
-  getArtworkHandler,
 };
