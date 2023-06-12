@@ -1,19 +1,20 @@
-const getArtwork = require("../controllers/usersControllers.js");
+const getArtwork = require("../controllers/artworkController.js");
 
 const getArtworkHandler = async (req, res) => {
   try {
-    const { name } = req.body;
-    const response = getArtwork();
-    if (name) {
+    const { title } = req.query;
+    const response = await getArtwork();
+    if (title) {
       let artworkName = response.filter((works) => {
-        works.title.toLowerCase().includes(name.toLowerCase());
+        return works.title.toLowerCase().includes(title.toLowerCase());
       });
-      if (artworkName === null) {
+      if (artworkName.length === 0) {
         throw Error("Artwork not available");
       }
       res.status(200).json(artworkName);
-    }
-    res.status(200).json(response);
+    }else{
+    res.status(200).json(response)
+   }
   } catch (error) {
     res.status(422).json({ error: error.message });
   }

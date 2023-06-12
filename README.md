@@ -25,6 +25,7 @@
 - Dashboard admin
 - Notificaciones (mail/socket.io)
 - Borrado lógico
+- Conectar Web3 Wallet
 
 <br />
 
