@@ -1,13 +1,13 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, UUIDV4 } = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "artwork",
+    'artwork',
     {
       id: {
         type: DataTypes.STRING,
         primaryKey: true,
-        allowNull: false,
+        defaultValue: UUIDV4,
       },
       title: {
         type: DataTypes.STRING,
@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      date: {
+      completitionYear: {
         type: DataTypes.INTEGER,
       },
     },
