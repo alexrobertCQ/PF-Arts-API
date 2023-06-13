@@ -31,15 +31,21 @@ const getAllArtwork = async () => {
 };
 
 //POST
-const createArtwork = async (title, artistName, image, completitionYear, userId) => { 
+const createArtwork = async (
+  title,
+  artistName,
+  image,
+  completitionYear,
+  userId
+) => {
   const user = await User.findByPk(userId);
-  if (!user)  {
+  if (!user) {
     throw Error('User not found');
   }
   const artworks = await Artwork.findAll();
-/*   if (artworks.length === 0) {
+  if (artworks.length === 0) {
     throw Error('No artworks available');
-  } */
+  }
   const duplicate = await artworks.some((works) =>
     works.title.toLowerCase().includes(title.toLowerCase())
   );
