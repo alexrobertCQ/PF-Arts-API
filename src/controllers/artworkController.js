@@ -1,6 +1,6 @@
 const axios = require('axios');
 const URL = 'http://www.wikiart.org/en/api/2/MostViewedPaintings';
-const { Artwork } = require('../db.js');
+const { Artwork, User } = require('../db.js');
 
 //GET
 const getArtwork = async () => {
@@ -31,24 +31,29 @@ const getAllArtwork = async () => {
 };
 
 //POST
-const createArtwork = async (title, artistName, image, completitionYear) => {
-  const artworks = await Artwork.findAll();
-  if (artworks.length === 0) {
-    throw Error('No artworks available');
+const createArtwork = async (title, artistName, image, completitionYear, userId) => { 
+  const user = await User.findByPk(userId);
+  if (!user)  {
+    throw Error('User not found');
   }
+  const artworks = await Artwork.findAll();
+/*   if (artworks.length === 0) {
+    throw Error('No artworks available');
+  } */
   const duplicate = await artworks.some((works) =>
     works.title.toLowerCase().includes(title.toLowerCase())
   );
   if (duplicate) {
     throw new Error('Artwork already exists');
   } else {
-    const artwork = await Artwork.create({
+    const newArtwork = await Artwork.create({
       title,
       artistName,
       image,
       completitionYear,
+      userId,
     });
-    return artwork;
+    return newArtwork;
   }
 };
 

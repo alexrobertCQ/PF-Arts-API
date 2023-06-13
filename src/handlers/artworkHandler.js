@@ -24,16 +24,17 @@ const getArtworkHandler = async (req, res) => {
 };
 
 const postArtworkHandler = async (req, res) => {
-  const { title, artistName, image, completitionYear } = req.body;
+  const { title, artistName, image, completitionYear, userId } = req.body;
   try {
-    if (!title || !artistName || !image || !completitionYear) {
+    if (!title || !artistName || !image || !completitionYear || !userId) {
       throw Error('Missing data');
     }
     const response = await createArtwork(
       title,
       artistName,
       image,
-      completitionYear
+      completitionYear,
+      userId
     );
     res.status(201).json(response);
   } catch (error) {
