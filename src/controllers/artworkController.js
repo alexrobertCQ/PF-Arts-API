@@ -6,16 +6,18 @@ const { Artwork, User } = require('../db.js');
 const getArtwork = async () => {
   const artworks = (await axios.get(URL)).data.data;
   // return artworksAPI;
-  artworks.map((works) => {
+  const arts = artworks.map((works) => {
     return {
       id: works.id,
       title: works.title,
       authorName: works.artistName,
       image: works.image,
-      completitionYear: works.completitionYear,
+      date: works.completitionYear,
+      price: works.width,
+      created: false,
     };
   });
-  return artworks;
+  return arts;
 };
 
 const getAllArtwork = async () => {
@@ -30,25 +32,19 @@ const getAllArtwork = async () => {
   }
 };
 
-const artworksPaging=async(pag)=>{
-  const limit=5;
-  const offset=(pag*limit)-limit;
+//PAGINADO
+const artworksPaging = async (pag) => {
+  const limit = 5;
+  const offset = pag * limit - limit;
   const data = await Artwork.findAndCountAll({
-     offset: offset,
-     limit: limit
-   });
-   console.log(data.count);
-   return data
-}
+    offset: offset,
+    limit: limit,
+  });
+  return data;
+};
 
 //POST
-const createArtwork = async (
-  title,
-  artistName,
-  image,
-  completitionYear,
-  userId
-) => {
+const createArtwork = async (title, authorName, image, date, price, userId) => {
   const user = await User.findByPk(userId);
   if (!user) {
     throw Error('User not found');
@@ -65,10 +61,12 @@ const createArtwork = async (
   } else {
     const newArtwork = await Artwork.create({
       title,
-      artistName,
+      authorName,
       image,
-      completitionYear,
+      date,
+      price,
       userId,
+      created: true,
     });
     return newArtwork;
   }
@@ -77,5 +75,5 @@ const createArtwork = async (
 module.exports = {
   getAllArtwork,
   createArtwork,
-  artworksPaging
+  artworksPaging,
 };
