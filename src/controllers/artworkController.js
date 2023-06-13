@@ -30,6 +30,17 @@ const getAllArtwork = async () => {
   }
 };
 
+const artworksPaging=async(pag)=>{
+  const limit=5;
+  const offset=(pag*limit)-limit;
+  const data = await Artwork.findAndCountAll({
+     offset: offset,
+     limit: limit
+   });
+   console.log(data.count);
+   return data
+}
+
 //POST
 const createArtwork = async (
   title,
@@ -66,4 +77,5 @@ const createArtwork = async (
 module.exports = {
   getAllArtwork,
   createArtwork,
+  artworksPaging
 };
