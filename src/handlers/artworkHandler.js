@@ -1,6 +1,7 @@
 const {
   getAllArtwork,
   createArtwork,
+  artworksPaging
 } = require('../controllers/artworkController.js');
 
 const getArtworkHandler = async (req, res) => {
@@ -42,7 +43,18 @@ const postArtworkHandler = async (req, res) => {
   }
 };
 
+const artworksPagingHandler=async(req,res)=>{
+  const {pag}=req.query;
+  console.log(pag);
+  try {
+      const artworks=await artworksPagign(pag);
+      res.status(200).json(artworks);
+  } catch (error) {
+      res.status(500).json({error:error.message})
+  }
+}
 module.exports = {
   getArtworkHandler,
   postArtworkHandler,
+  artworksPagingHandler
 };
