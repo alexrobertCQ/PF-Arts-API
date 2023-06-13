@@ -1,4 +1,4 @@
-const createUser = require("../controllers/usersControllers.js");
+const {createUser} = require("../controllers/usersControllers.js");
 
 const getUsersHandler = async (req, res) => {
   try {
@@ -18,7 +18,7 @@ const postUsersHandler = async (req, res) => {
     const newUser = await createUser(name, image, description);
     res.status(201).json(newUser);
   } catch (error) {
-    res.status(422).json({ error: error });
+    res.status(422).json({ error: error.message });
   }
 };
 
