@@ -1,9 +1,12 @@
-const { Op } = require("sequelize");
-const { User } = require("../db.js");
+const { Op } = require('sequelize');
+const { User } = require('../db.js');
 
 const getUsers = async () => {
-  const user = await User.findAll();
-  return user;
+  const users = await User.findAll();
+  if (users.length === 0) {
+    throw Error('No users found');
+  }
+  return users;
 };
 
 const createUser = async (name, image, description) => {
