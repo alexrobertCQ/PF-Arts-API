@@ -1,11 +1,11 @@
-const {createUser} = require("../controllers/usersControllers.js");
+const { createUser } = require('../controllers/usersControllers.js');
 
 const getUsersHandler = async (req, res) => {
   try {
     const response = await getUsers();
     res.status(201).json(response);
   } catch (error) {
-    res.status(422).json({ error: error });
+    res.status(422).json({ error: error.message });
   }
 };
 
@@ -13,7 +13,7 @@ const postUsersHandler = async (req, res) => {
   const { name, image, description } = req.body;
   try {
     if (!name || !image || !description) {
-      throw Error("Missing data");
+      throw Error('Missing data');
     }
     const newUser = await createUser(name, image, description);
     res.status(201).json(newUser);
@@ -24,4 +24,5 @@ const postUsersHandler = async (req, res) => {
 
 module.exports = {
   postUsersHandler,
+  getUsersHandler,
 };

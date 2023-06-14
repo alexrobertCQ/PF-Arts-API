@@ -17,12 +17,19 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      artistName: {
+      authorName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      completitionYear: {
+      date: {
         type: DataTypes.INTEGER,
+      },
+      price: {
+        type: DataTypes.INTEGER,
+      },
+      created: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
       },
     },
     { timestamps: false }
