@@ -13,13 +13,19 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      authorName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       image: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      authorName: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      height: {
+        type: DataTypes.INTEGER,
+      },
+      width: {
+        type: DataTypes.INTEGER,
       },
       date: {
         type: DataTypes.INTEGER,

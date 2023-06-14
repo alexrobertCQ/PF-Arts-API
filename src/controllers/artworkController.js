@@ -13,6 +13,8 @@ const getArtwork = async () => {
       authorName: works.artistName,
       image: works.image,
       date: works.completitionYear,
+      height: works.height,
+      width: works.width,
       price: works.width,
       created: false,
     };
@@ -32,6 +34,20 @@ const getAllArtwork = async () => {
   }
 };
 
+//:id
+const getArtID = async (id) => {
+  const empty = await Artwork.count();
+  if (empty === 0) {
+    throw Error('No info available');
+  } else {
+    const artworkByID = await Artwork.findByPk(id);
+    if (!artworkByID) {
+      throw new Error('No match found');
+    }
+    return artworkByID;
+  }
+};
+
 //PAGINADO
 const artworksPaging = async (pag) => {
   const limit = 5;
@@ -44,7 +60,16 @@ const artworksPaging = async (pag) => {
 };
 
 //POST
-const createArtwork = async (title, authorName, image, date, price, userId) => {
+const createArtwork = async (
+  title,
+  authorName,
+  image,
+  date,
+  height,
+  width,
+  price,
+  userId
+) => {
   const user = await User.findByPk(userId);
   if (!user) {
     throw Error('User not found');
@@ -64,6 +89,8 @@ const createArtwork = async (title, authorName, image, date, price, userId) => {
       authorName,
       image,
       date,
+      height,
+      width,
       price,
       userId,
       created: true,
@@ -74,6 +101,7 @@ const createArtwork = async (title, authorName, image, date, price, userId) => {
 
 module.exports = {
   getAllArtwork,
+  getArtID,
   createArtwork,
   artworksPaging,
 };

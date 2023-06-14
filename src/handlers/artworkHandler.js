@@ -1,5 +1,6 @@
 const {
   getAllArtwork,
+  getArtID,
   createArtwork,
   artworksPaging,
 } = require('../controllers/artworkController.js');
@@ -24,10 +25,29 @@ const getArtworkHandler = async (req, res) => {
   }
 };
 
-const postArtworkHandler = async (req, res) => {
-  const { title, authorName, image, date, price, userId } = req.body;
+const getArtIdHandler = async (req, res) => {
   try {
-    if (!title || !authorName || !image || !date || !userId) {
+    const { id } = req.params;
+    const response = await getArtID(id);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const postArtworkHandler = async (req, res) => {
+  const { title, authorName, image, date, height, width, price, userId } =
+    req.body;
+  try {
+    if (
+      !title ||
+      !authorName ||
+      !image ||
+      !date ||
+      !height ||
+      !width ||
+      !userId
+    ) {
       throw Error('Missing data');
     }
     const response = await createArtwork(
@@ -35,6 +55,8 @@ const postArtworkHandler = async (req, res) => {
       authorName,
       image,
       date,
+      height,
+      width,
       price,
       userId
     );
@@ -56,6 +78,7 @@ const artworksPagingHandler = async (req, res) => {
 };
 module.exports = {
   getArtworkHandler,
+  getArtIdHandler,
   postArtworkHandler,
   artworksPagingHandler,
 };
