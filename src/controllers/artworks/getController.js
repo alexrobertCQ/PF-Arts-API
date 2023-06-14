@@ -1,4 +1,5 @@
 const axios = require('axios');
+const URL = 'https://www.wikiart.org/en/api/2/MostViewedPaintings';
 const { Artwork } = require('../../db');
 
 //GET

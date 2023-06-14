@@ -1,4 +1,4 @@
-const { User, Artwork } = require('../db.js');
+const { User, Artwork } = require('../../db');
 const getUserID = async (id) => {
   const empty = await User.count();
   if (empty === 0) {
