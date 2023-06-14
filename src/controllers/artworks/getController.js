@@ -1,0 +1,37 @@
+const axios = require('axios');
+const { Artwork } = require('../../db');
+
+//GET
+const getArtwork = async () => {
+    const artworks = (await axios.get(URL)).data.data;
+    // return artworksAPI;
+    const arts = artworks.map((works) => {
+      return {
+        id: works.id,
+        title: works.title,
+        authorName: works.artistName,
+        image: works.image,
+        date: works.completitionYear,
+        price: works.width,
+        created: false,
+      };
+    });
+    return arts;
+  };
+  
+  const getAllArtwork = async () => {
+    const count = await Artwork.count();
+    if (count > 0) {
+      const artworksDB = await Artwork.findAll();
+      return artworksDB;
+    } else {
+      const artworksAPI = await getArtwork();
+      const DB = await Artwork.bulkCreate(artworksAPI);
+      return DB;
+    }
+  };
+
+  module.exports = {
+    getAllArtwork,
+    getArtwork
+  }
