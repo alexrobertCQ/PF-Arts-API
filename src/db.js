@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
 
-//Instantiating Sequelize OJO AL NOMBRE DE LA DB: arts
+//Instantiating Sequelize Toggle for deploy or dev.
 const sequelize = new Sequelize(
   DB_DEPLOY,
   {
