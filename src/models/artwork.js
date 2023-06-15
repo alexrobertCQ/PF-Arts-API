@@ -23,15 +23,19 @@ module.exports = (sequelize) => {
       },
       height: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       width: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       date: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       price: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       created: {
         type: DataTypes.BOOLEAN,
