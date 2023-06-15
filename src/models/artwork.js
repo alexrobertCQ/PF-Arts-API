@@ -13,19 +13,29 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      image: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       authorName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      date: {
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      height: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      width: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      date: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       price: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       created: {
         type: DataTypes.BOOLEAN,
