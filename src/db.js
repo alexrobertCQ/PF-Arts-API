@@ -2,15 +2,24 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-//Instantiating Sequelize OJO AL NOMBRE DE LA DB: arts
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
+
+//Instantiating Sequelize Toggle for deploy or dev.
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/arts`,
+  DB_DEPLOY,
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
 );
+
+/* const sequelize = new Sequelize(
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/arts`,
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  }
+); */
 
 const basename = path.basename(__filename);
 
