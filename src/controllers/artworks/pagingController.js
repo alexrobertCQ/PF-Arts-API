@@ -3,10 +3,11 @@ const { Op } = require("sequelize");
 
 const artworksPaging = async (pag=1,century,order,created) => {
   validate(pag,century,order,created)
-  //La funcion recibe por query el numero de pagina que se desea ver, el siglo que desea filtrar,
-  //Si desea ver los dados en orden ascendente o descendente por precio
-  // y si desea ver las obras de la api o las creadas por el usuario
-  //Todos los filtros son dinamicos y se pueden convinar entre si
+  //La funcion recibe por query el numero de pagina que se desea ver, 
+  //el siglo que desea filtrar, si desea ver los dados en orden ascendente o descendente por precio  
+  //y si desea ver las obras de la api o las creadas por el usuario.
+  //Todos los filtros son dinamicos y se pueden combinar entre si.
+
     const limit = 10;
     const offset = pag * limit - limit;
     const where={offset:offset,limit:limit}
