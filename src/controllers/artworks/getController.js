@@ -12,7 +12,7 @@ const getArtwork = async () => {
       title: works.title,
       authorName: works.artistName,
       image: works.image,
-      date: works.completitionYear ? works.completitionYear : '-',
+      date: works.completitionYear ? works.completitionYear : 0,
       height: works.height,
       width: works.width,
       price: works.width,

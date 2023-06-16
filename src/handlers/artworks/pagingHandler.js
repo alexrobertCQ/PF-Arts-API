@@ -1,10 +1,9 @@
 const artworksPaging = require ('../../controllers/artworks/pagingController');
 
 const artworksPagingHandler = async (req, res) => {
-    const { pag } = req.query;
-    console.log(pag);
+    const { pag,century,order,created } = req.query;
     try {
-      const artworks = await artworksPaging(pag);
+      const artworks = await artworksPaging(pag,century,order,created);
       res.status(200).json(artworks);
     } catch (error) {
       res.status(500).json({ error: error.message });
