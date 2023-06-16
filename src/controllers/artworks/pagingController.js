@@ -8,7 +8,7 @@ const artworksPaging = async (pag = 1, century, order, created) => {
   //y si desea ver las obras de la api o las creadas por el usuario.
   //Todos los filtros son dinamicos y se pueden combinar entre si.
 
-  const limit = 10;
+  const limit = 8;
   const offset = pag * limit - limit;
   const where = { offset: offset, limit: limit };
   if (century) {
