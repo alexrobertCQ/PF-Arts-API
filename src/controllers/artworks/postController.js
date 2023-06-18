@@ -18,7 +18,7 @@ const createArtwork = async (
     throw Error('User not found');
   }
   const artworks = await Artwork.findAll();
-  if (artworks.length === 0) {
+  if (!artworks) {
     throw Error('No artworks available');
   }
   const duplicate = await artworks.some((works) =>
