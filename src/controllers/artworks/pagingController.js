@@ -8,9 +8,10 @@ const artworksPaging = async (pag = 1, century, order, created) => {
   //y si desea ver las obras de la api o las creadas por el usuario.
   //Todos los filtros son dinamicos y se pueden combinar entre si.
 
-  const limit = 8;
-  const offset = pag * limit - limit;
-  const where = { offset: offset, limit: limit };
+  // const limit = 10;
+  // const offset = pag * limit - limit;
+  // const where = { offset: offset, limit: limit };
+  const where = {};
   if (century) {
     const years = [century * 100 - 100, century * 100 - 1];
     where.where = { date: { [Op.between]: years } };
@@ -28,7 +29,7 @@ const artworksPaging = async (pag = 1, century, order, created) => {
 
 const validate = (pag, century, order, created) => {
   //Query data validation
-  if (pag && isNaN(pag)) throw Error('Invalid paging range');
+  // if (pag && isNaN(pag)) throw Error('Invalid paging range');
   if ((century && isNaN(century)) || century < 1 || century > 21)
     throw Error('Invalid century range');
   if (order && order != 'ASC' && order != 'DESC')
