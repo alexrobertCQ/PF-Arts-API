@@ -10,7 +10,7 @@ const postUsersHandler = async (req, res) => {
     location,
   } = req.body;
   try {
-    if (!userName) {
+    if (!userName && !email) {
       throw Error('Missing data');
     }
     const newUser = await createUser(

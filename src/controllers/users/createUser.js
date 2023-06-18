@@ -25,7 +25,6 @@ const createUser = async (
     phoneNumber,
     location,
   });
-  console.log(newUser);
   return newUser;
 };
 

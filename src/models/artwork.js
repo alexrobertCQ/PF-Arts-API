@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       date: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       price: {
@@ -42,6 +42,6 @@ module.exports = (sequelize) => {
         defaultValue: true,
       },
     },
-    { timestamps: false }
+    { timestamps: true, paranoid: true }
   );
 };
