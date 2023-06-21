@@ -6,11 +6,12 @@ const postUsersHandler = async (req, res) => {
     profilePicture,
     description,
     email,
+    password,
     phoneNumber,
     location,
   } = req.body;
   try {
-    if (!userName && !email) {
+    if (!userName || !email || !password) {
       throw Error('Missing data');
     }
     const newUser = await createUser(
@@ -18,6 +19,7 @@ const postUsersHandler = async (req, res) => {
       profilePicture,
       description,
       email,
+      password,
       phoneNumber,
       location
     );
