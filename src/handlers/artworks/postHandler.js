@@ -1,16 +1,31 @@
 const createArtwork = require('../../controllers/artworks/postController');
-
+const cloudinary = require('../../utils/cloudinary');
 const postArtworkHandler = async (req, res) => {
   const { title, authorName, image, date, price, height, width, userId } =
     req.body;
   try {
-    if (!title || !authorName || !image || !date || !userId) {
+    const result = await cloudinary.uploader.upload(image, {
+      folder: 'artworks',
+    });
+    if (
+      !title ||
+      !authorName ||
+      !image ||
+      !date ||
+      !price ||
+      !height ||
+      !width ||
+      !userId
+    ) {
       throw Error('Missing data');
     }
     const response = await createArtwork(
       title,
       authorName,
-      image,
+      {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
       date,
       height,
       width,

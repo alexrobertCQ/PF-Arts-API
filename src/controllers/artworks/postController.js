@@ -1,5 +1,3 @@
-const axios = require('axios');
-const URL = 'http://www.wikiart.org/en/api/2/MostViewedPaintings';
 const { Artwork, User } = require('../../db');
 
 //POST
@@ -30,7 +28,10 @@ const createArtwork = async (
     const newArtwork = await Artwork.create({
       title,
       authorName,
-      image,
+      image: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
       date,
       height,
       width,
