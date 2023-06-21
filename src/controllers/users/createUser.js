@@ -5,6 +5,7 @@ const createUser = async (
   profilePicture,
   description,
   email,
+  password,
   phoneNumber,
   location
 ) => {
@@ -28,6 +29,7 @@ const createUser = async (
     profilePicture,
     description,
     email,
+    password,
     phoneNumber,
     location,
   });
