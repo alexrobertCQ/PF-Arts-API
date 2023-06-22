@@ -4,7 +4,7 @@ const { Artwork, User } = require('../../db');
 const createArtwork = async (
   title,
   authorName,
-  imageURL,
+  image,
   date,
   height,
   width,
@@ -15,29 +15,26 @@ const createArtwork = async (
   if (!user) {
     throw Error('User not found');
   }
-  const artworks = await Artwork.findAll();
-  if (!artworks) {
-    throw Error('No artworks available');
-  }
-  const duplicate = await artworks.some((works) =>
-    works.title.toLowerCase().includes(title.toLowerCase())
-  );
-  if (duplicate) {
-    throw new Error('Artwork already exists');
-  } else {
-    const newArtwork = await Artwork.create({
-      title,
-      authorName,
-      imageURL,
-      date,
-      height,
-      width,
-      price,
-      userId,
-      created: true,
-    });
-    return newArtwork;
-  }
+  // const duplicate = await artworks.some((works) =>
+  //   works.title.toLowerCase().includes(title.toLowerCase())
+  // );
+  // if (duplicate) {
+  //   throw new Error('Artwork already exists');
+  // }
+  // else {
+  const newArtwork = await Artwork.create({
+    title,
+    authorName,
+    image,
+    date,
+    height,
+    width,
+    price,
+    userId,
+    created: true,
+  });
+  return newArtwork;
+  // }
 };
 
 module.exports = createArtwork;
