@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const artworksRouter = Router();
+const upload = require('../utils/cloudinary');
 
 const getArtworkHandler = require('../handlers/artworks/getHandler');
 const getArtIdHandler = require('../handlers/artworks/getByIDHandler');
@@ -14,7 +15,7 @@ artworksRouter.get('/detail/:id', getArtIdHandler);
 
 artworksRouter.get('/db', artworksPagingHandler);
 
-artworksRouter.post('/', postArtworkHandler);
+artworksRouter.post('/', upload.single('image'), postArtworkHandler);
 
 artworksRouter.put('/:id', putArtworkHandler);
 
