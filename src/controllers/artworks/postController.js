@@ -4,7 +4,7 @@ const { Artwork, User } = require('../../db');
 const createArtwork = async (
   title,
   authorName,
-  image,
+  imageURL,
   date,
   height,
   width,
@@ -28,10 +28,7 @@ const createArtwork = async (
     const newArtwork = await Artwork.create({
       title,
       authorName,
-      image: {
-        public_id: result.public_id,
-        url: result.secure_url,
-      },
+      imageURL,
       date,
       height,
       width,
