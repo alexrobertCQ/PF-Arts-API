@@ -17,11 +17,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      public_id: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      url: {
+      imageURL: {
         type: DataTypes.STRING,
         allowNull: false,
       },
