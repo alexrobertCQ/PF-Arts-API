@@ -1,3 +1,4 @@
+require('dotenv').config();
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -8,7 +9,6 @@ cloudinary.config({
   api_secret: process.env.CLOUD_KEY_SECRET,
 });
 
-// Configuración de almacenamiento de Multer para Cloudinary
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
@@ -17,7 +17,6 @@ const storage = new CloudinaryStorage({
   },
 });
 
-// Configuración de Multer
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
