@@ -11,7 +11,7 @@ const getArtwork = async () => {
       id: works.id,
       title: works.title,
       authorName: works.artistName,
-      imageURL: works.image,
+      image: works.image,
       date: works.completitionYear ? works.completitionYear : 0,
       height: works.height,
       width: works.width,
