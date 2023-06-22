@@ -24,6 +24,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^2.0.22",
     "pg": "^8.11.0",
-    "sequelize": "^6.32.0"
+    "sequelize": "^6.32.0",
+    "valid-url": "^1.0.9"
   }
 }
