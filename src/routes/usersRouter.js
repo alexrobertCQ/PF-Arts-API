@@ -7,12 +7,10 @@ const getUsersHandler = require('../handlers/users/getHandler.js');
 const getUserIdHandler = require('../handlers/users/getByIDHandler');
 const loginHandler = require('../handlers/users/loginHandler');
 const updateUsersHandler = require('../handlers/users/updateHandler');
-const authenticateToken = require('../utils/authenticateToken');
-const getFavoritesHandler = require('../handlers/users/getFavoritesHandler');
-const authenticateToken = require('../utils/authenticateToken'); // Importa el middleware
+const getFavsHandler = require('../handlers/users/getFavoritesHandler.js');
 const postFavoritesHandler = require('../handlers/users/postFavoritesHandler');
-const getFavsHandler = require('../handlers/users/getFavoritesHandler');
 const deleteFavsHandler = require('../handlers/users/getFavoritesHandler');
+const authenticateToken = require('../utils/authenticateToken'); // Importa el middleware
 
 usersRouter.post('/', postUsersHandler);
 
