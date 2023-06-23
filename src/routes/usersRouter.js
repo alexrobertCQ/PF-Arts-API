@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const usersRouter = Router();
+const upload = require('../utils/cloudinaryUsersp.js');
+
 const postUsersHandler = require('../handlers/users/postHandler');
 const getUsersHandler = require('../handlers/users/getHandler.js');
 const getUserIdHandler = require('../handlers/users/getByIDHandler');
@@ -11,7 +13,7 @@ const getFavoritesHandler = require('../handlers/users/getFavoritesHandler');
 usersRouter.post('/', postUsersHandler);
 usersRouter.get('/', getUsersHandler);
 usersRouter.get('/detail/:id', getUserIdHandler);
-usersRouter.put('/edit', authenticateToken, updateUsersHandler);
+usersRouter.put('/edit',  upload.single('profilePicture'), authenticateToken, updateUsersHandler);
 usersRouter.post('/login', loginHandler);
 
 usersRouter.get('/favorites/:id', getFavoritesHandler);

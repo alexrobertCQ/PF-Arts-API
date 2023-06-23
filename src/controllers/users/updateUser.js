@@ -1,6 +1,6 @@
 const { User } = require('../../db.js');
 
-const updateUser = async (id, userName, profilePicture, description, email, password, phoneNumber, location) => {
+const updateUser = async (id, userName, profilePicture, description, password, phoneNumber, location) => {
   try {
     console.log("idcontroller",id);
     const user = await User.findByPk(id);
@@ -15,9 +15,6 @@ const updateUser = async (id, userName, profilePicture, description, email, pass
       throw Error('You are not authorized to update this user');
     }
 
-    if (user.email !== email) {
-      throw Error('You are not authorized to update the email');
-    }
 
     const updatedUser = await user.update({
       userName,
