@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
   sequelize.define(
     'artwork',
     {
-      id: {
+      artworkId: {
         type: DataTypes.STRING,
         primaryKey: true,
         defaultValue: UUIDV4,

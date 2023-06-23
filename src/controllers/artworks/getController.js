@@ -8,7 +8,7 @@ const getArtwork = async () => {
   // return artworksAPI;
   const arts = artworks.map((works) => {
     return {
-      id: works.id,
+      artworkId: works.id,
       title: works.title,
       authorName: works.artistName,
       image: works.image,
