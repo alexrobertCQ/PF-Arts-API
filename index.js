@@ -36,15 +36,15 @@
 //                    `--._______.---------:F_P:'
 
 /* ------------------------------------------------ */
-const server = require("./src/app.js");
-const { conn } = require("./src/db.js");
+const server = require('./src/app.js');
+const { conn } = require('./src/db.js');
 
 //Setting environment variables.
-require("dotenv").config();
+require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 
 // Syncing all the models at once.
-conn.sync({ alter: true }).then(() => {
+conn.sync({ force: true }).then(() => {
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);
   });

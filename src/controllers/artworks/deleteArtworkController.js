@@ -2,7 +2,7 @@ const { Artwork } = require('../../db');
 
 const deleteArtwork = async (id) => {
   const artwork = await Artwork.findByPk(id, {
-    attributes: ['id', 'title'],
+    attributes: ['artworkId', 'title'],
   });
   if (!artwork) {
     throw Error('Artwork not found');
