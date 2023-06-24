@@ -51,16 +51,14 @@ const { User, Artwork } = sequelize.models;
 User.hasMany(Artwork, { foreignKey: 'userId' });
 Artwork.belongsTo(User, { foreignKey: 'userId' });
 
-User.belongsToMany(Artwork, {
-  through: 'favorites',
-  foreignKey: 'userId',
-  onDelete: 'CASCADE',
-});
-Artwork.belongsToMany(User, {
-  through: 'favorites',
-  foreignKey: 'artworkId',
-  onDelete: 'CASCADE',
-});
+// User.belongsToMany(Artwork, {
+//   through: 'favorites',
+//   onDelete: 'CASCADE',
+// });
+// Artwork.belongsToMany(User, {
+//   through: 'favorites',
+//   onDelete: 'CASCADE',
+// });
 
 module.exports = {
   ...sequelize.models, // To import models like: const { Product, User } = require('./db.js');

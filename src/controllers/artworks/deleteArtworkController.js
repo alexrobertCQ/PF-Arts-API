@@ -1,11 +1,16 @@
 const { Artwork } = require('../../db');
 
-const deleteArtwork = async (id) => {
-  const artwork = await Artwork.findByPk(id, {
-    attributes: ['artworkId', 'title'],
+const deleteArtwork = async (userId, artworkId) => {
+  const artwork = await Artwork.findOne({
+    where: {
+      artworkId: artworkId,
+      userId: userId,
+    },
   });
   if (!artwork) {
-    throw Error('Artwork not found');
+    throw new Error('Artwork not found');
+  } else if (artwork.userId !== userId) {
+    throw new Error('Unauthorized');
   } else {
     await artwork.destroy({ force: false });
 
