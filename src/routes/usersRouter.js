@@ -23,7 +23,7 @@ usersRouter.put(
   updateUsersHandler
 );
 
-usersRouter.delete('/:id', authenticateToken, deleteUsersHandler);
+usersRouter.delete('/delete', authenticateToken, deleteUsersHandler);
 
 usersRouter.post('/login', loginHandler);
 

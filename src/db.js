@@ -46,10 +46,13 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Sequelize has all models in sequelize.models. we can use it destructuring.
-const { User, Artwork } = sequelize.models;
+const { User, Artwork, Category } = sequelize.models;
 // Then it can be related.
 User.hasMany(Artwork, { foreignKey: 'userId' });
 Artwork.belongsTo(User, { foreignKey: 'userId' });
+
+Artwork.belongsToMany(Category, { through: 'artCategory' });
+Category.belongsToMany(Artwork, { through: 'artCategory' });
 
 // User.belongsToMany(Artwork, {
 //   through: 'favorites',

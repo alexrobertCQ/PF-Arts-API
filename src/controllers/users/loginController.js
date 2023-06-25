@@ -7,7 +7,6 @@ const validateUser = async (userName, password) => {
   return new Promise((resolve, reject) => {
     User.findOne({ where: { userName } })
       .then((user) => {
-        console.log(user);
         if (user && user.password === password) {
           const token = jwt.sign({ userId: user.userId }, SECRET_KEY);
           resolve(token);

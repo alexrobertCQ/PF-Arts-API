@@ -1,4 +1,4 @@
-const { Artwork, User } = require('../../db');
+const { Artwork, User, Category } = require('../../db');
 
 const getArtID = async (id) => {
   const empty = await Artwork.count();
@@ -6,10 +6,19 @@ const getArtID = async (id) => {
     throw Error('No info available');
   } else {
     const artworkByID = await Artwork.findByPk(id, {
-      include: {
-        model: User,
-        attributes: ['userName'],
-      },
+      include: [
+        {
+          model: User,
+          attributes: ['userName'],
+        },
+        {
+          model: Category,
+          attributes: ['name'],
+          through: {
+            attributes: [],
+          },
+        },
+      ],
     });
     if (!artworkByID) {
       throw new Error('No match found');

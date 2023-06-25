@@ -23,8 +23,17 @@ artworksRouter.post(
   postArtworkHandler
 );
 
-artworksRouter.put('/:id', putArtworkHandler);
+artworksRouter.put(
+  '/edit/:artworkId',
+  upload.single('image'),
+  authenticateToken,
+  putArtworkHandler
+);
 
-artworksRouter.delete('/:artworkId', authenticateToken, deleteArtworkHandler);
+artworksRouter.delete(
+  '/delete/:artworkId',
+  authenticateToken,
+  deleteArtworkHandler
+);
 
 module.exports = artworksRouter;

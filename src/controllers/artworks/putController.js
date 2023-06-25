@@ -1,8 +1,9 @@
-const { Artwork } = require('../../db');
+const { Artwork, Category } = require('../../db');
 
 // PUT
 const updateArtwork = async (
   artworkId,
+  userId,
   title,
   authorName,
   image,
@@ -16,17 +17,24 @@ const updateArtwork = async (
     throw Error('Artwork not found');
   }
 
-  artwork.title = title;
-  artwork.authorName = authorName;
-  artwork.image = image;
-  artwork.date = date;
-  artwork.height = height;
-  artwork.width = width;
-  artwork.price = price;
+  if (artwork.userId !== userId) {
+    throw Error('You are not authorized to update this artwork');
+  }
 
-  await artwork.save();
+  const updatedArtwork = await artwork.update(
+    Object.assign(
+      {},
+      title && { title },
+      authorName && { authorName },
+      image && { image },
+      date && { date },
+      height && { height },
+      width && { width },
+      price && { price }
+    )
+  );
 
-  return artwork;
+  return updatedArtwork;
 };
 
 module.exports = updateArtwork;

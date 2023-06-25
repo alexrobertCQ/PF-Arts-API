@@ -1,6 +1,7 @@
 const createArtwork = require('../../controllers/artworks/postController');
 const postArtworkHandler = async (req, res) => {
-  const { title, authorName, date, price, height, width } = req.body;
+  const { title, authorName, date, price, height, width, category } =
+    req.body;
   const userId = req.userId;
   const image = typeof req.file === 'object' ? req.file.path : req.body.image;
 
@@ -13,7 +14,8 @@ const postArtworkHandler = async (req, res) => {
       !height ||
       !width ||
       !userId ||
-      !image
+      !image ||
+      !category
     ) {
       throw new Error('Missing or invalid data');
     }
@@ -26,6 +28,7 @@ const postArtworkHandler = async (req, res) => {
       height,
       width,
       price,
+      category,
       userId
     );
 

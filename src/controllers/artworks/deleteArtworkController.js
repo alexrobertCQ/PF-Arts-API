@@ -3,7 +3,6 @@ const { Artwork } = require('../../db');
 const deleteArtwork = async (userId, artworkId) => {
   const artwork = await Artwork.findOne({
     where: {
-      artworkId: artworkId,
       userId: userId,
     },
   });
