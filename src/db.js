@@ -47,12 +47,32 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Sequelize has all models in sequelize.models. we can use it destructuring.
 const { User, Artwork, Category } = sequelize.models;
+
+const createPredefinedCategories = async () => {
+  const categoriesCount = await Category.count();
+  if (categoriesCount === 0) {
+    await Category.bulkCreate([
+      { categoryId: 1, name: 'Painting' },
+      { categoryId: 2, name: 'Illustration' },
+      { categoryId: 3, name: '3D' },
+      { categoryId: 4, name: 'Collage' },
+      { categoryId: 5, name: 'Pixel Art' },
+      { categoryId: 6, name: 'Photography' },
+    ]);
+  }
+};
 // Then it can be related.
 User.hasMany(Artwork, { foreignKey: 'userId' });
 Artwork.belongsTo(User, { foreignKey: 'userId' });
 
-Artwork.belongsToMany(Category, { through: 'artCategory' });
-Category.belongsToMany(Artwork, { through: 'artCategory' });
+Artwork.belongsToMany(Category, {
+  through: 'artCategory',
+  onDelete: 'CASCADE',
+});
+Category.belongsToMany(Artwork, {
+  through: 'artCategory',
+  onDelete: 'CASCADE',
+});
 
 // User.belongsToMany(Artwork, {
 //   through: 'favorites',
@@ -65,5 +85,6 @@ Category.belongsToMany(Artwork, { through: 'artCategory' });
 
 module.exports = {
   ...sequelize.models, // To import models like: const { Product, User } = require('./db.js');
-  conn: sequelize, // To import connection { conn } = require('./db.js');
+  conn: sequelize,
+  createPredefinedCategories, // To import connection { conn } = require('./db.js');
 };
