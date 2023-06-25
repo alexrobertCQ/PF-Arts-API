@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'usa el dotenv';
 function authenticateToken(req, res, next) {
-  const token = req.headers.authorization;
-  // console.log(token);
+  const token = req.headers.authorization?.split(' ')[1];
+   console.log("middleware",token);
   if (token) {
     jwt.verify(token, SECRET_KEY, (err, decodedToken) => {
       if (err) {
