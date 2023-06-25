@@ -38,14 +38,19 @@
 /* ------------------------------------------------ */
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const { createPredefinedCategories } = require('./src/db.js');
 
 //Setting environment variables.
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(PORT, () => {
-    console.log(`%s listening at ${PORT}`);
-  });
-});
+
+conn
+  // .sync({ force: true })
+  .sync({ alter: true })
+  .then(() => createPredefinedCategories())
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log(`%s listening at ${PORT}`);
+    });

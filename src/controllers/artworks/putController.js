@@ -7,12 +7,21 @@ const updateArtwork = async (
   title,
   authorName,
   image,
-  date,
   height,
   width,
-  price
+  date,
+  price,
+  category
 ) => {
-  const artwork = await Artwork.findByPk(artworkId);
+  const artwork = await Artwork.findByPk(artworkId, {
+    include: {
+      model: Category,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   if (!artwork) {
     throw Error('Artwork not found');
   }
@@ -21,15 +30,23 @@ const updateArtwork = async (
     throw Error('You are not authorized to update this artwork');
   }
 
+  if (category) {
+    let existingCategory = await Category.findOne({
+      where: { name: category },
+    });
+
+    await artwork.setCategories(existingCategory);
+  }
+
   const updatedArtwork = await artwork.update(
     Object.assign(
       {},
       title && { title },
       authorName && { authorName },
       image && { image },
-      date && { date },
       height && { height },
       width && { width },
+      date && { date },
       price && { price }
     )
   );
