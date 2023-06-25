@@ -1,4 +1,4 @@
-const { Artwork, User } = require('../../db');
+const { Artwork, User, Category } = require('../../db');
 
 //POST
 const createArtwork = async (
@@ -9,6 +9,7 @@ const createArtwork = async (
   height,
   width,
   price,
+  category,
   userId
 ) => {
   const user = await User.findByPk(userId);
@@ -22,6 +23,8 @@ const createArtwork = async (
   //   throw new Error('Artwork already exists');
   // }
   // else {
+  const categoryName = await Category.create({ name: category });
+
   const newArtwork = await Artwork.create({
     title,
     authorName,
@@ -33,6 +36,9 @@ const createArtwork = async (
     userId,
     created: true,
   });
+
+  await newArtwork.addCategory(categoryName);
+
   return newArtwork;
   // }
 };

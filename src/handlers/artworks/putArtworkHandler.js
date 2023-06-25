@@ -1,21 +1,21 @@
 const updateArtwork = require('../../controllers/artworks/putController');
 
 const putArtworkHandler = async (req, res) => {
-  const artworkId = req.params.id;
-  const { title, authorName, image, date, price, height, width } = req.body;
+  const userId = req.userId;
+  const { artworkId } = req.params;
+  const { title, authorName, date, price, height, width } = req.body;
+  const image = typeof req.file === 'object' ? req.file.path : req.body.image;
   try {
-    if (!title || !authorName || !image || !date) {
-      throw Error('Missing data');
-    }
     const response = await updateArtwork(
       artworkId,
+      userId,
       title,
       authorName,
       image,
       date,
+      price,
       height,
-      width,
-      price
+      width
     );
     res.status(200).json(response);
   } catch (error) {

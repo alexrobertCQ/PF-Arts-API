@@ -1,13 +1,13 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, UUIDV4 } = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define(
     'user',
     {
       userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
+        defaultValue: UUIDV4,
       },
       profilePicture: {
         type: DataTypes.STRING,
@@ -35,9 +35,9 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
     },
-    { timestamps: false }
+    { timestamps: true, paranoid: true }
   );
 };
