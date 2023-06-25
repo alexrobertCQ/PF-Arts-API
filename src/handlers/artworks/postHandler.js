@@ -4,7 +4,7 @@ const postArtworkHandler = async (req, res) => {
     req.body;
   const userId = req.userId;
   const image = typeof req.file === 'object' ? req.file.path : req.body.image;
-
+console.log("holi",title);
   try {
     if (
       !title ||
