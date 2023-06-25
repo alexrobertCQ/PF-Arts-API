@@ -3,7 +3,7 @@ const updateArtwork = require('../../controllers/artworks/putController');
 const putArtworkHandler = async (req, res) => {
   const userId = req.userId;
   const { artworkId } = req.params;
-  const { title, authorName, date, price, height, width } = req.body;
+  const { title, authorName, date, price, height, width, category } = req.body;
   const image = typeof req.file === 'object' ? req.file.path : req.body.image;
   try {
     const response = await updateArtwork(
@@ -12,10 +12,11 @@ const putArtworkHandler = async (req, res) => {
       title,
       authorName,
       image,
+      height,
+      width,
       date,
       price,
-      height,
-      width
+      category
     );
     res.status(200).json(response);
   } catch (error) {
