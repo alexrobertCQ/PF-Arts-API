@@ -1,25 +1,13 @@
 const { User } = require('../../db.js');
 
-const createUser = async (
-  userName,
-  profilePicture,
-  description,
-  email,
-  password,
-  phoneNumber,
-  location
-) => {
+const createUser = async (userName, profilePicture, description, email, password, phoneNumber, location, googleUser) => {
   const allUser = await User.findAll();
   if (allUser.length > 0) {
-    const duplicate = await allUser.some(
-      (users) => users.userName.toLowerCase() === userName.toLowerCase()
-    );
+    const duplicate = await allUser.some((users) => users.userName.toLowerCase() === userName.toLowerCase());
     if (duplicate) {
       throw Error('Username already exists');
     }
-    const duplicateEmail = await allUser.some(
-      (users) => users.email.toLowerCase() === email.toLowerCase()
-    );
+    const duplicateEmail = await allUser.some((users) => users.email.toLowerCase() === email.toLowerCase());
     if (duplicateEmail) {
       throw Error('An account with this email already exists');
     }
@@ -32,6 +20,7 @@ const createUser = async (
     password,
     phoneNumber,
     location,
+    googleUser,
   });
   return newUser;
 };
