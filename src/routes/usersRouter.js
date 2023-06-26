@@ -7,9 +7,7 @@ const getUsersHandler = require('../handlers/users/getHandler.js');
 const getUserIdHandler = require('../handlers/users/getByIDHandler');
 const loginHandler = require('../handlers/users/loginHandler');
 const updateUsersHandler = require('../handlers/users/updateHandler');
-const getFavsHandler = require('../handlers/users/getFavoritesHandler.js');
-const postFavoritesHandler = require('../handlers/users/postFavoritesHandler');
-const deleteFavsHandler = require('../handlers/users/getFavoritesHandler');
+const deleteUsersHandler = require('../handlers/users/deleteHandler.js');
 const authenticateToken = require('../utils/authenticateToken'); // Importa el middleware
 
 usersRouter.post('/', postUsersHandler);
@@ -25,12 +23,8 @@ usersRouter.put(
   updateUsersHandler
 );
 
+usersRouter.delete('/delete', authenticateToken, deleteUsersHandler);
+
 usersRouter.post('/login', loginHandler);
-
-usersRouter.post('/:userId/:artworkId', postFavoritesHandler);
-
-usersRouter.get('/favorites/:userId', getFavsHandler);
-
-usersRouter.delete('/favorites/:userId', deleteFavsHandler);
 
 module.exports = usersRouter;

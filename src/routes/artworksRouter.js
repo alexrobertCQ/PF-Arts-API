@@ -8,6 +8,7 @@ const postArtworkHandler = require('../handlers/artworks/postHandler');
 const artworksFilterHandler = require('../handlers/artworks/filterHandler');
 const putArtworkHandler = require('../handlers/artworks/putArtworkHandler');
 const deleteArtworkHandler = require('../handlers/artworks/deleteHandler');
+const authenticateToken = require('../utils/authenticateToken');
 
 artworksRouter.get('/', getArtworkHandler);
 
@@ -15,10 +16,24 @@ artworksRouter.get('/detail/:id', getArtIdHandler);
 
 artworksRouter.get('/db', artworksFilterHandler);
 
-artworksRouter.post('/', upload.single('image'), postArtworkHandler);
+artworksRouter.post(
+  '/',
+  upload.single('image'),
+  authenticateToken,
+  postArtworkHandler
+);
 
-artworksRouter.put('/:id', putArtworkHandler);
+artworksRouter.put(
+  '/edit/:artworkId',
+  upload.single('image'),
+  authenticateToken,
+  putArtworkHandler
+);
 
-artworksRouter.delete('/:id', deleteArtworkHandler);
+artworksRouter.delete(
+  '/delete/:artworkId',
+  authenticateToken,
+  deleteArtworkHandler
+);
 
 module.exports = artworksRouter;

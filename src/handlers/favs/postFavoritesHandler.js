@@ -1,6 +1,6 @@
-const addFavorite = require('../../controllers/users/addFavorites');
+const addFavorite = require('../../controllers/favs/addFavorites');
 
-const postFavoritesHandler = async (req, res) => {
+const postFavsHandler = async (req, res) => {
   try {
     const { userId, artworkId } = req.params;
     const response = await addFavorite(userId, artworkId);
@@ -10,4 +10,4 @@ const postFavoritesHandler = async (req, res) => {
   }
 };
 
-module.exports = postFavoritesHandler;
+module.exports = postFavsHandler;
