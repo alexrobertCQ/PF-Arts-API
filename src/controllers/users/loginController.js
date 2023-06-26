@@ -5,6 +5,7 @@ const SECRET_KEY = 'usa el dotenv';
 
 const validateUser = async (userName, password) => {
   return new Promise((resolve, reject) => {
+    console.log(userName, password);
     User.findOne({ where: { userName } })
       .then((user) => {
         if (user && user.password === password) {

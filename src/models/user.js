@@ -37,6 +37,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      googleUser: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
     },
     { timestamps: true, paranoid: true }
   );
