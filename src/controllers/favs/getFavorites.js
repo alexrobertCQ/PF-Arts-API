@@ -6,9 +6,10 @@ const getFavs = async (userId) => {
   } else {
     const favorites = await User.findByPk(userId, {
       include: {
-        model: Artwork,
+        association: 'userFav',
         through: {
-          attributes: [], // Puedes especificar los atributos de la tabla intermedia que deseas obtener aquí
+          model: 'favorites',
+          attributes: [], // O puedes especificar los atributos que deseas incluir de la tabla intermedia
         },
       },
     });
