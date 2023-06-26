@@ -8,7 +8,7 @@ const addFavorite = async (userId, artworkId) => {
     throw new Error('User or Artwork not found');
   }
 
-  await user.addArtwork(artwork);
+  await user.addUserFav(artwork, { through: 'favorites' });
 
   return { message: 'Artwork added to favorites' };
 };
