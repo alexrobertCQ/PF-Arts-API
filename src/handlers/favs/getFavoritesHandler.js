@@ -1,4 +1,4 @@
-const getFavs = require('../../controllers/users/getByID');
+const getFavs = require('../../controllers/favs/getFavorites');
 
 const getFavsHandler = async (req, res) => {
   try {
