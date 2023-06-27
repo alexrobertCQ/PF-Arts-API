@@ -1,7 +1,8 @@
 const { User } = require('../../db');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const SECRET_KEY = process.env.JWT_SECRET;
 
-const SECRET_KEY = 'usa el dotenv';
 
 const validateUser = async (userName, password) => {
   return new Promise((resolve, reject) => {
