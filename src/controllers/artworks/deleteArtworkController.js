@@ -4,6 +4,7 @@ const deleteArtwork = async (userId, artworkId) => {
   const artwork = await Artwork.findOne({
     where: {
       userId: userId,
+      artworkId: artworkId,
     },
   });
   if (!artwork) {
@@ -11,7 +12,7 @@ const deleteArtwork = async (userId, artworkId) => {
   } else if (artwork.userId !== userId) {
     throw new Error('Unauthorized');
   } else {
-    await artwork.destroy({ force: false });
+    await artwork.destroy();
 
     return {
       message: 'The artwork was deleted successfully',

@@ -60,8 +60,8 @@ const createPredefinedCategories = async () => {
   }
 };
 // Then it can be related.
-User.hasMany(Artwork, { foreignKey: 'userId' });
-Artwork.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(Artwork, { foreignKey: 'userId', onDelete: 'CASCADE' });
+Artwork.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 
 Artwork.belongsToMany(Category, {
   through: 'artCategory',
