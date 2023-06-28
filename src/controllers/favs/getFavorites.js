@@ -7,9 +7,10 @@ const getFavs = async (userId) => {
     const favorites = await User.findByPk(userId, {
       include: {
         model: Artwork,
-        attributes: ['title', 'image', 'favorites'],
+        as: 'userFav',
+        attributes: ['title', 'image'],
         through: {
-          attributes: [],
+          attributes: [], // Excluir los atributos de la tabla intermedia
         },
       },
     });

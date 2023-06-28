@@ -1,32 +1,57 @@
-const { Artwork } = require('../../db');
+const { Artwork, Category } = require('../../db');
 
 // PUT
 const updateArtwork = async (
   artworkId,
+  userId,
   title,
   authorName,
   image,
-  date,
   height,
   width,
-  price
+  date,
+  price,
+  category
 ) => {
-  const artwork = await Artwork.findByPk(artworkId);
+  const artwork = await Artwork.findByPk(artworkId, {
+    include: {
+      model: Category,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   if (!artwork) {
     throw Error('Artwork not found');
   }
 
-  artwork.title = title;
-  artwork.authorName = authorName;
-  artwork.image = image;
-  artwork.date = date;
-  artwork.height = height;
-  artwork.width = width;
-  artwork.price = price;
+  if (artwork.userId !== userId) {
+    throw Error('You are not authorized to update this artwork');
+  }
 
-  await artwork.save();
+  if (category) {
+    let existingCategory = await Category.findOne({
+      where: { name: category },
+    });
 
-  return artwork;
+    await artwork.setCategories(existingCategory);
+  }
+
+  const updatedArtwork = await artwork.update(
+    Object.assign(
+      {},
+      title && { title },
+      authorName && { authorName },
+      image && { image },
+      height && { height },
+      width && { width },
+      date && { date },
+      price && { price }
+    )
+  );
+
+  return updatedArtwork;
 };
 
 module.exports = updateArtwork;

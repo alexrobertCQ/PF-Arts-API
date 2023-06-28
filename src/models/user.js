@@ -1,16 +1,17 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, UUIDV4 } = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define(
     'user',
     {
       userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
+        defaultValue: UUIDV4,
       },
       profilePicture: {
         type: DataTypes.STRING,
+        defaultValue: 'https://icon-library.com/images/artist-icon/artist-icon-14.jpg',
         allowNull: true,
       },
       userName: {
@@ -35,9 +36,16 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          len: [8, Infinity],
+        },
+      },
+      googleUser: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
       },
     },
-    { timestamps: false }
+    { timestamps: true, paranoid: true }
   );
 };

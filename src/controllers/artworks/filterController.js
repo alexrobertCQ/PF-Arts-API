@@ -1,40 +1,45 @@
-const { Artwork } = require('../../db');
+const { Artwork,Category } = require('../../db');
 const { Op } = require('sequelize');
 
-const artworksPaging = async (pag = 1, century, order, created) => {
-  validate(pag, century, order, created);
-  //La funcion recibe por query el numero de pagina que se desea ver,
-  //el siglo que desea filtrar, si desea ver los dados en orden ascendente o descendente por precio
-  //y si desea ver las obras de la api o las creadas por el usuario.
-  //Todos los filtros son dinamicos y se pueden combinar entre si.
-
+const artworksPaging = async (pag=1, priceRange, order, category, orderType) => {
+  validate(pag, priceRange, order, category, orderType);
   // const limit = 10;
   // const offset = pag * limit - limit;
   // const where = { offset: offset, limit: limit };
-  const where = {};
-  if (century) {
-    const years = [century * 100 - 100, century * 100 - 1];
-    where.where = { date: { [Op.between]: years } };
+  const where = {
+    include:{
+      model: Category,
+      attributes: ['name'],
+      through:{
+          attributes:[],
+      },
+    }};
+  if (priceRange) {
+    const price = [priceRange * 100 , priceRange * 100 + 99];//Rangos de precios de 0-99 etc...
+    where.where = { price: { [Op.between]: price } };
   }
-  if (order) {
-    where.order = [['price', order]];
+  if (order && orderType) {//Recibe si el orden es asc o des y por que tipo de atributo se ordena
+    where.order = [[orderType, order]];
   }
-  if (created) {
-    if (where.where) where.where = { ...where.where, created: created };
-    else where.where = { created: created };
+  if (category) {
+     where.include.where={name:category};
   }
+  console.log(where);
   const data = await Artwork.findAndCountAll(where);
   return data;
 };
 
-const validate = (pag, century, order, created) => {
+const validate = (pag, priceRange, order, category, orderType) => {
   //Query data validation
+  const categories=['Painting','Illustration','3D','Collage','Pixel Art','Photography']
   // if (pag && isNaN(pag)) throw Error('Invalid paging range');
-  if ((century && isNaN(century)) || century < 1 || century > 21)
-    throw Error('Invalid century range');
+  if ((priceRange && isNaN(priceRange)) || priceRange < 0)
+    throw Error('Invalid price range');
   if (order && order != 'ASC' && order != 'DESC')
     throw Error('Invalid order input');
-  if (created && created != 'true' && created != 'false')
+  if (orderType && orderType != 'title' && orderType != 'price')
+    throw Error('Invalid order type');
+  if (category && !categories.includes(category))
     throw Error('invalid creation input');
 };
 module.exports = artworksPaging;
