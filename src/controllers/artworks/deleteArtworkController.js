@@ -14,6 +14,8 @@ const deleteArtwork = async (userId, artworkId) => {
   } else {
     await artwork.destroy();
 
+    await artwork.save();
+
     return {
       message: 'The artwork was deleted successfully',
       artwork,
