@@ -11,6 +11,7 @@ module.exports = (sequelize) => {
       },
       profilePicture: {
         type: DataTypes.STRING,
+        defaultValue: 'https://icon-library.com/images/artist-icon/artist-icon-14.jpg',
         allowNull: true,
       },
       userName: {
