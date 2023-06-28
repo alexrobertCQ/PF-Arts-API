@@ -44,7 +44,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Sequelize has all models in sequelize.models. we can use it destructuring.
-const { User, Artwork, Category } = sequelize.models;
+const { User, Artwork, Category, Transaction } = sequelize.models;
 
 const createPredefinedCategories = async () => {
   const categoriesCount = await Category.count();
@@ -60,27 +60,33 @@ const createPredefinedCategories = async () => {
   }
 };
 // Then it can be related.
-User.hasMany(Artwork, { foreignKey: 'userId' });
+User.hasMany(Artwork, { foreignKey: 'userId', onDelete: 'CASCADE' });
 Artwork.belongsTo(User, { foreignKey: 'userId' });
 
 Artwork.belongsToMany(Category, {
   through: 'artCategory',
-  onDelete: 'CASCADE',
 });
 Category.belongsToMany(Artwork, {
   through: 'artCategory',
-  onDelete: 'CASCADE',
 });
 
 User.belongsToMany(Artwork, {
   through: 'favorites',
   as: 'userFav',
-  onDelete: 'CASCADE',
 });
 Artwork.belongsToMany(User, {
   through: 'favorites',
   as: 'favArtwork',
-  onDelete: 'CASCADE',
+});
+
+User.hasMany(Transaction, { foreignKey: 'userId' });
+Transaction.belongsTo(User, { foreignKey: 'userId' });
+
+Artwork.belongsToMany(Transaction, {
+  through: 'ArtworkTransaction',
+});
+Transaction.belongsToMany(Artwork, {
+  through: 'ArtworkTransaction',
 });
 
 module.exports = {
