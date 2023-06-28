@@ -8,7 +8,7 @@ const getFavs = async (userId) => {
       include: {
         model: Artwork,
         as: 'userFav',
-        attributes: ['title', 'image'],
+        attributes: ['title', 'image', 'artworkId'],
         through: {
           attributes: [], // Excluir los atributos de la tabla intermedia
         },
