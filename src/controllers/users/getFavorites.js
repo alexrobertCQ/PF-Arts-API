@@ -7,18 +7,15 @@ const getFavs = async (userId) => {
     const favorites = await User.findByPk(userId, {
       include: {
         model: Artwork,
-        as: 'userFav',
-        attributes: ['title', 'image', 'artworkId'],
+        attributes: ['title', 'image', 'favorites'],
         through: {
-          attributes: [], // Excluir los atributos de la tabla intermedia
+          attributes: [],
         },
       },
     });
     if (!favorites) {
       throw new Error('No match found');
     }
-    console.log(userId);
-
     return favorites;
   }
 };
