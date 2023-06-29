@@ -12,7 +12,8 @@ const postUsersHandler = async (req, res) => {
     }
     
     const newUser = await createUser(userName, profilePicture, description, email, password, phoneNumber, location, googleUser);
-    const token = jwt.sign({ userId: newUser.id }, secret, { expiresIn: '3h' });
+    console.log(newUser);
+    const token = jwt.sign({ userId: newUser.userId }, secret, { expiresIn: '3h' });
     const verificationLink = `https://pf-arts-client-4adpqtk37-davidongo93.vercel.app/verify?token=${token}`;
     const mailOptions = {
       from: 'henryartgallery@hotmail.com',
