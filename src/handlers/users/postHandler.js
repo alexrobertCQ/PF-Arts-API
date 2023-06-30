@@ -4,16 +4,16 @@ const createUser = require('../../controllers/users/createUser');
 const nodemailer = require('nodemailer');
 
 const postUsersHandler = async (req, res) => {
-  const { userName, profilePicture, description, email, password, phoneNumber, location, googleUser } = req.body;
+  const { userName, profilePicture, description, email, password, phoneNumber, location, googleUser,verified } = req.body;
 
   try {
     if (!userName || !email || !password) {
       throw Error('Missing data');
     }
     
-    const newUser = await createUser(userName, profilePicture, description, email, password, phoneNumber, location, googleUser);
+    const newUser = await createUser(userName, profilePicture, description, email, password, phoneNumber, location, googleUser, verified);
     console.log(newUser);
-    const token = jwt.sign({ userId: newUser.userId }, secret, { expiresIn: '3h' });
+    const token = jwt.sign({ userId: newUser.userId, password: newUser.password }, secret, { expiresIn: '3h' });
     const verificationLink = `https://pf-arts-client-4adpqtk37-davidongo93.vercel.app/verify?token=${token}`;
     const mailOptions = {
       from: 'henryartgallery@hotmail.com',

@@ -13,7 +13,14 @@ const validateToken = (token) => {
         const { userId } = decoded;
         User.findOne({ where: { userId } })
           .then((user) => {
-            resolve(user);
+            // Modificar el atributo 'verified' del usuario a true
+            user.update({ verified: true })
+              .then(() => {
+                resolve(user);
+              })
+              .catch((error) => {
+                reject(error);
+              });
           })
           .catch((error) => {
             reject(error);

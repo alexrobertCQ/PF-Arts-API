@@ -45,6 +45,10 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: true,
       },
+      verified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
     },
     { timestamps: true }
   );
