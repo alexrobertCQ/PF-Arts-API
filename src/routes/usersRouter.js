@@ -8,8 +8,8 @@ const getUserIdHandler = require('../handlers/users/getByIDHandler');
 const loginHandler = require('../handlers/users/loginHandler');
 const updateUsersHandler = require('../handlers/users/updateHandler');
 const deleteUsersHandler = require('../handlers/users/deleteHandler.js');
-const authenticateToken = require('../utils/authenticateToken'); // Importa el middleware
-
+const authenticateToken = require('../utils/authenticateToken');
+const verifyTokenHandler = require('../handlers/users/VerifyHandler.js')
 usersRouter.post('/', postUsersHandler);
 
 usersRouter.get('/', getUsersHandler);
@@ -26,5 +26,6 @@ usersRouter.put(
 usersRouter.delete('/delete', authenticateToken, deleteUsersHandler);
 
 usersRouter.post('/login', loginHandler);
+usersRouter.post('/verify', verifyTokenHandler);
 
 module.exports = usersRouter;
