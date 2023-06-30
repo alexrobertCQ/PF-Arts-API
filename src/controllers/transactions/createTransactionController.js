@@ -2,9 +2,9 @@ const { Transaction, Artwork, User } = require('../../db');
 
 const createTrans = async (artworkId, buyerId, sellerId) => {
   const transaction = await Transaction.create({
-    artworkId,
-    buyerId,
-    sellerId,
+    artwork: artworkId,
+    buyer: buyerId,
+    seller: sellerId,
   });
 
   const artwork = await Artwork.findByPk(artworkId);
@@ -15,9 +15,10 @@ const createTrans = async (artworkId, buyerId, sellerId) => {
   await transaction.addArtwork(artwork);
 
   const buyer = await User.findByPk(buyerId);
+  console.log('buyerByPk', buyer);
   const seller = await User.findByPk(sellerId);
+  console.log('sellerByPk', seller);
 
-  // Retornar los detalles de la transacción creada
   return {
     transactionId: transaction.id,
     buyer: {

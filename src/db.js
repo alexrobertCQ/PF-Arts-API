@@ -44,7 +44,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Sequelize has all models in sequelize.models. we can use it destructuring.
-const { User, Artwork, Category, Transaction } = sequelize.models;
+const { User, Artwork, Category, Transaction} = sequelize.models;
 
 const createPredefinedCategories = async () => {
   const categoriesCount = await Category.count();
@@ -78,6 +78,17 @@ Artwork.belongsToMany(User, {
   through: 'favorites',
   as: 'favArtwork',
 });
+
+
+User.belongsToMany(Artwork, {
+  through: 'review',
+  as: 'reviews',
+});
+Artwork.belongsToMany(User, {
+  through: 'review',
+  as: 'reviews',
+});
+
 
 User.hasMany(Transaction, { foreignKey: 'userId' });
 Transaction.belongsTo(User, { foreignKey: 'userId' });

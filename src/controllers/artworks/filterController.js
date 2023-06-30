@@ -1,8 +1,8 @@
 const { Artwork,Category } = require('../../db');
 const { Op } = require('sequelize');
 
-const artworksPaging = async (pag=1, priceRange, order, category, orderType) => {
-  validate(pag, priceRange, order, category, orderType);
+const artworksPaging = async (pag=1, minPrice, maxPrice, order, category, orderType) => {
+  validate(pag, minPrice, maxPrice, order, category, orderType);
   // const limit = 10;
   // const offset = pag * limit - limit;
   // const where = { offset: offset, limit: limit };
@@ -14,27 +14,26 @@ const artworksPaging = async (pag=1, priceRange, order, category, orderType) => 
           attributes:[],
       },
     }};
-  if (priceRange) {
-    const price = [priceRange * 100 , priceRange * 100 + 99];//Rangos de precios de 0-99 etc...
-    where.where = { price: { [Op.between]: price } };
+  if (minPrice && maxPrice) {
+    where.where = { price: { [Op.between]: [minPrice, maxPrice] } };
   }
-  if (order && orderType) {//Recibe si el orden es asc o des y por que tipo de atributo se ordena
+  if (order && orderType) {
     where.order = [[orderType, order]];
   }
   if (category) {
      where.include.where={name:category};
   }
-  console.log(where);
   const data = await Artwork.findAndCountAll(where);
   return data;
 };
 
-const validate = (pag, priceRange, order, category, orderType) => {
+const validate = (pag, minPrice, maxPrice, order, category, orderType) => {
   //Query data validation
   const categories=['Painting','Illustration','3D','Collage','Pixel Art','Photography']
-  // if (pag && isNaN(pag)) throw Error('Invalid paging range');
-  if ((priceRange && isNaN(priceRange)) || priceRange < 0)
-    throw Error('Invalid price range');
+  if (pag && isNaN(pag)) throw Error('Invalid paging range');
+  if ((minPrice && maxPrice && (isNaN(minPrice) || isNaN(maxPrice))) 
+    || parseInt(minPrice) < 0 || parseInt(minPrice)>parseInt(maxPrice))
+      throw Error('Invalid price range');
   if (order && order != 'ASC' && order != 'DESC')
     throw Error('Invalid order input');
   if (orderType && orderType != 'title' && orderType != 'price')
