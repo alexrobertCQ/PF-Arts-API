@@ -29,7 +29,6 @@ const artworksPaging = async (pag=1, minPrice, maxPrice, order, category, orderT
 
 const validate = (pag, minPrice, maxPrice, order, category, orderType) => {
   //Query data validation
-  console.log(parseInt(minPrice)>parseInt(maxPrice));
   const categories=['Painting','Illustration','3D','Collage','Pixel Art','Photography']
   if (pag && isNaN(pag)) throw Error('Invalid paging range');
   if ((minPrice && maxPrice && (isNaN(minPrice) || isNaN(maxPrice))) 
