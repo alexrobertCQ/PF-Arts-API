@@ -6,8 +6,8 @@ const getReviewsArtworkHandler = require('../handlers/reviews/getHandlers');
 const deleteReviewHandler = require('../handlers/reviews/deleteHandler');
 const authenticateToken = require('../utils/authenticateToken');
 
-reviewsRouter.post('/', authenticateToken, postReviewsHandler);
+reviewsRouter.post('/:artworkArtworkId', authenticateToken, postReviewsHandler);
 reviewsRouter.get('/:artworkArtworkId', getReviewsArtworkHandler);
-reviewsRouter.delete('/delete',authenticateToken, deleteReviewHandler);
+reviewsRouter.delete('/delete', authenticateToken, deleteReviewHandler);
 
 module.exports = reviewsRouter;
