@@ -8,6 +8,9 @@ const createUser = async (
   password,
   phoneNumber,
   location,
+  fb,
+  tw,
+  ig,
   googleUser,
   verified
 ) => {
@@ -32,8 +35,11 @@ const createUser = async (
     password,
     phoneNumber,
     location,
+    fb,
+    tw,
+    ig,
     googleUser,
-    verified
+    verified,
   });
   return newUser;
 };
