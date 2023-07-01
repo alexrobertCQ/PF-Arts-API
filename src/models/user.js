@@ -11,7 +11,8 @@ module.exports = (sequelize) => {
       },
       profilePicture: {
         type: DataTypes.STRING,
-        defaultValue: 'https://icon-library.com/images/artist-icon/artist-icon-14.jpg',
+        defaultValue:
+          'https://icon-library.com/images/artist-icon/artist-icon-14.jpg',
         allowNull: true,
       },
       userName: {
@@ -31,6 +32,18 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       location: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      fb: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      tw: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      ig: {
         type: DataTypes.STRING,
         allowNull: true,
       },

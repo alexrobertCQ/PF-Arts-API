@@ -14,9 +14,6 @@ const createTransHandler = async (req, res) => {
       throw Error('Artwork not found');
     } else {
       const sellerId = artwork.userId;
-      console.log('buyer:', buyerId);
-      console.log('artwork:', artworkId);
-      console.log('seller:', sellerId);
       const response = await createTrans(artworkId, buyerId, sellerId);
       res.status(201).json(response);
     }
