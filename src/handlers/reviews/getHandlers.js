@@ -1,4 +1,4 @@
-const getReviewsArtwork = require('../../controllers/reviews/getControler')
+const getReviewsArtwork = require('../../controllers/reviews/getController')
 const getReviewsArtworkHandler = async (req, res) => {
     const {artworkArtworkId} = req.params;
     try {
