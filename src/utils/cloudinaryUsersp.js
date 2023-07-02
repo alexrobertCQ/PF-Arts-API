@@ -13,14 +13,14 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'profilePicture',
-    allowed_formats: ['jpg', 'jpeg', 'png'],
+    allowed_formats: ['jpg', 'jpeg', 'png', 'PNG'],
   },
 });
 
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|PNG)$/)) {
       return cb(new Error('File type is not supported'), false);
     }
     cb(null, true);

@@ -8,7 +8,11 @@ const createUser = async (
   password,
   phoneNumber,
   location,
-  googleUser
+  fb,
+  tw,
+  ig,
+  googleUser,
+  verified
 ) => {
   const allUser = await User.findAll();
   // if (allUser.length > 0) {
@@ -31,7 +35,11 @@ const createUser = async (
     password,
     phoneNumber,
     location,
+    fb,
+    tw,
+    ig,
     googleUser,
+    verified,
   });
   return newUser;
 };

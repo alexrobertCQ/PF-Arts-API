@@ -1,4 +1,4 @@
-const deleteReview = require('../../controllers/reviews/deleteControler')
+const deleteReview = require('../../controllers/reviews/deleteController')
 const deleteReviewHandler = async (req, res) => {
     const userUserId = req.userId;
     const {artworkArtworkId} = req.body;
