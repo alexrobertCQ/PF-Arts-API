@@ -5,7 +5,7 @@ const createTransHandler = require('../handlers/transactions/createTransactionHa
 const getTransHandler = require('../handlers/transactions/getTransactionHandler');
 const authenticateToken = require('../utils/authenticateToken');
 
-transRouter.post('/:artworkId', authenticateToken, createTransHandler);
+transRouter.post('/:artworkIds', authenticateToken, createTransHandler);
 
 transRouter.get('/', authenticateToken, getTransHandler);
 
