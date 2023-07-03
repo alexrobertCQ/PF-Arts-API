@@ -1,45 +1,49 @@
-const axios = require('axios');
-const URL = 'http://www.wikiart.org/en/api/2/MostViewedPaintings';
-const { Artwork, User } = require('../../db');
+const { Artwork, User, Category } = require('../../db');
 
 //POST
 const createArtwork = async (
+  userId,
   title,
   authorName,
   image,
-  date,
   height,
   width,
+  date,
   price,
-  userId
+  category
 ) => {
+  console.log(userId);
   const user = await User.findByPk(userId);
   if (!user) {
     throw Error('User not found');
   }
-  const artworks = await Artwork.findAll();
-  if (artworks.length === 0) {
-    throw Error('No artworks available');
-  }
-  const duplicate = await artworks.some((works) =>
-    works.title.toLowerCase().includes(title.toLowerCase())
-  );
-  if (duplicate) {
-    throw new Error('Artwork already exists');
-  } else {
-    const newArtwork = await Artwork.create({
-      title,
-      authorName,
-      image,
-      date,
-      height,
-      width,
-      price,
-      userId,
-      created: true,
-    });
-    return newArtwork;
-  }
+  // const duplicate = await artworks.some((works) =>
+  //   works.title.toLowerCase().includes(title.toLowerCase())
+  // );
+  // if (duplicate) {
+  //   throw new Error('Artwork already exists');
+  // }
+  // else {
+  const categoryName = await Category.findOne({
+    where: { name: category },
+  });
+
+  const newArtwork = await Artwork.create({
+    userId,
+    title,
+    authorName,
+    image,
+    height,
+    width,
+    date,
+    price,
+    created: true,
+  });
+
+  await newArtwork.addCategory(categoryName);
+
+  return newArtwork;
+  // }
 };
 
 module.exports = createArtwork;
