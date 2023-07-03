@@ -6,24 +6,32 @@ const { DB_NAME, DB_PORT, DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } =
   process.env;
 
 // Instantiating Sequelize Toggle for deploy or dev.
-// const sequelize = new Sequelize(DB_DEPLOY, {
-//   logging: false, // set to console.log to see the raw SQL queries
-//   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-// });
+const sequelize = new Sequelize(DB_DEPLOY, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false // << Opción para evitar el rechazo de conexiones no autorizadas
+    }
+  },
+  logging: false, // set to console.log to see the raw SQL queries
+  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+});
 
-const sequelize = new Sequelize(
+/* const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
-);
+); */
 
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
 
-// Reading all files from Models folder, they are required and added to the array  modelDefiners.
+// Reading all files from Models folder, they are required and added to the array modelDefiners.
 fs.readdirSync(path.join(__dirname, '/models'))
   .filter(
     (file) =>
@@ -44,7 +52,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Sequelize has all models in sequelize.models. we can use it destructuring.
-const { User, Artwork, Category, Transaction} = sequelize.models;
+const { User, Artwork, Category, Transaction } = sequelize.models;
 
 const createPredefinedCategories = async () => {
   const categoriesCount = await Category.count();
@@ -79,7 +87,6 @@ Artwork.belongsToMany(User, {
   as: 'favArtwork',
 });
 
-
 User.belongsToMany(Artwork, {
   through: 'review',
   as: 'reviews',
@@ -88,7 +95,6 @@ Artwork.belongsToMany(User, {
   through: 'review',
   as: 'reviews',
 });
-
 
 User.hasMany(Transaction, { foreignKey: 'userId' });
 Transaction.belongsTo(User, { foreignKey: 'userId' });
