@@ -11,9 +11,12 @@ reviewsRouter.post('/:artworkArtworkId', authenticateToken, postReviewsHandler);
 
 reviewsRouter.get('/:artworkArtworkId', getReviewsArtworkHandler);
 
-reviewsRouter.delete('/delete',authenticateToken, deleteReviewHandler);
+reviewsRouter.delete(
+  '/delete/:artworkArtworkId',
+  authenticateToken,
+  deleteReviewHandler
+);
 
-reviewsRouter.put('/:artworkArtworkId',authenticateToken, updateReviewHandler);
-
+reviewsRouter.put('/:artworkArtworkId', authenticateToken, updateReviewHandler);
 
 module.exports = reviewsRouter;

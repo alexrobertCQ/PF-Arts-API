@@ -9,6 +9,10 @@ module.exports = (sequelize) => {
         defaultValue: UUIDV4,
         primaryKey: true,
       },
+      paypal_id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       artwork: {
         type: DataTypes.UUID,
         allowNull: false,
@@ -21,10 +25,17 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         allowNull: false,
       },
+      artwork_value: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true,
+      },
+      total_value: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true,
+      },
       status: {
-        type: DataTypes.ENUM('pending', 'approved', 'rejected'),
-        defaultValue: 'pending',
-        allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     { timestamps: true, paranoid: true }
