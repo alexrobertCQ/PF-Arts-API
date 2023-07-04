@@ -3,7 +3,7 @@
     "routes": [
       {
         "src": "/(.*)",
-        "methods": ["OPTIONS"],
+        "methods": ["OPTIONS", "PUT", "POST", "DELETE", "GET"],
         "headers": {
           "Access-Control-Allow-Origin": "https://pf-arts-client.vercel.app",
           "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, DELETE",
